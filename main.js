@@ -396,12 +396,38 @@ function simulateVotes() {
                     +blessings[j]['fVotes']);
             }
         } else {
+            /*the old logic
             //cast each vote for a random blessing
             for(var j = 0; j < maxVotes; j++) {
                 var targ = randBetween(0, blessings.length);
                 blessings[targ].votes.set(teams[i].name,
                     +blessings[targ].votes.get(teams[i].name) + 1);
-            } 
+            }*/
+            //weight each blessing
+            var weights = [];
+            var totalWeight = 0;
+            for(var j = 0; j < blessings.length; j++) {
+                var rand = Math.random();
+                weights.push(rand);
+                totalWeight += rand;
+            }
+
+            //then assign the vote based on the weights
+            for(var j = 0; j < maxVotes; j++) {
+                var luckyNum = Math.random() * totalWeight;
+                var targ = -1;
+                var alreadyCounted = 0;
+                for(var k = 0; k < blessings.length; k++) {
+                    if(luckyNum > alreadyCounted) {
+                        targ = k;
+                    }
+                    alreadyCounted += weights[k];
+                }
+                
+                blessings[targ].votes.set(teams[i].name,
+                    +blessings[targ].votes.get(teams[i].name) + 1);
+            }
+
         }
     }
 }
