@@ -375,6 +375,7 @@ function buildProgress() {
         var sub = document.createElement('input');
         sub.setAttribute('type', 'button');
         sub.setAttribute('value', 'Simulate Election');
+        sub.setAttribute('class', 'submit');
         
         sub.onclick = function () {
             simulateVotes();
@@ -423,7 +424,7 @@ function simulateVotes() {
                     }
                     alreadyCounted += weights[k];
                 }
-                
+
                 blessings[targ].votes.set(teams[i].name,
                     +blessings[targ].votes.get(teams[i].name) + 1);
             }
@@ -435,7 +436,7 @@ function simulateVotes() {
 function simulateElection() {
     var ret = [];
     
-    results.innerHTML = '';
+    results.innerHTML = '<h1>BLESSINGS</h1>';
     for(var i = 0; i < blessings.length; i++) {
         var me = {};
 
@@ -474,9 +475,9 @@ function simulateElection() {
         ret.push(me);
 
         //annd add to the results
-        results.innerHTML += `<br>
-        <h3>${me.name} - <i>${me.size} Votes Cast</i></h3><br>
-        The ${me.winner.team.name} Recieved ${me.name}.<br>
+        results.innerHTML += `<br><br>
+        <h3>${me.name} - <i>${me.size} Votes Cast</i></h3>
+        <h2 style="display:inline;">${me.winner.team.emoji}</h2> The ${me.winner.team.name} Recieved ${me.name}.<br>
         <i>The ${me.winner.team.name} had ${Math.floor(100 * me.winner.value /me.size)}% of the Votes</i><br>`
         if(me.winner.team.name == me.highest.team.name) {
             results.innerHTML += `<i>They were the highest bidders.</i>`;
