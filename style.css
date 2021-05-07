@@ -5,6 +5,11 @@ body {
     margin: 5%;
 }
 
+input {
+    margin: 2px;
+    margin-right: 10px;
+}
+
 .submit {
     margin: 5px;
     width: 100%;
